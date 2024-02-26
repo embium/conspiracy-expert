@@ -38,7 +38,7 @@ export default function PageAdminThread() {
   const router = useRouter();
   const params = useParams();
   const thread = trpc.threads.getById.useQuery({
-    id: params?.id?.toString() ?? '',
+    id: Number(params.id),
   });
 
   const threadRemove = trpc.threads.removeById.useMutation({

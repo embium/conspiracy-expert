@@ -27,7 +27,7 @@ model User {
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
   name           String?
-  email          String?        @unique
+  email          String        @unique
   accountStatus  AccountStatus @default(NOT_VERIFIED)
   image          String?
   authorizations String[]      @default(["APP"])
@@ -36,7 +36,6 @@ model User {
 
   threads Thread[]
 }
-
 
 model VerificationToken {
   userId        Int

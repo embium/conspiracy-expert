@@ -27,7 +27,7 @@ export default function PageAdminThreadUpdate() {
   const router = useRouter();
   const thread = trpc.threads.getById.useQuery(
     {
-      id: params?.id?.toString() ?? '',
+      id: Number(params.id),
     },
     {
       refetchOnReconnect: false,

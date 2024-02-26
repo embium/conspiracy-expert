@@ -28,7 +28,7 @@ export default function PageAdminUserUpdate() {
   const router = useRouter();
   const user = trpc.users.getById.useQuery(
     {
-      id: params?.id?.toString() ?? '',
+      id: Number(params.id),
     },
     {
       refetchOnReconnect: false,
