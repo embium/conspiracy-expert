@@ -56,6 +56,7 @@ export const AppLayout: FC<React.PropsWithChildren<unknown>> = ({
     [navDisplayed, setNavDisplayed, navDrawer]
   );
 
+  console.log(navDisplayed);
   return (
     <AppLayoutContext.Provider value={providerValue}>
       <Viewport
@@ -67,6 +68,7 @@ export const AppLayout: FC<React.PropsWithChildren<unknown>> = ({
         <Flex flex="1" direction="column">
           {children}
         </Flex>
+
         {navDisplayed === true && <AppNavBarMobile />}
       </Viewport>
     </AppLayoutContext.Provider>

@@ -1,0 +1,71 @@
+{
+  "list": {
+    "title": "Threads",
+    "empty": "No threads",
+    "actions": {
+      "createThread": "Create Thread",
+      "view": "View"
+    },
+    "loadMore": {
+      "button": "Load more",
+      "display": "Showing {{loaded}} of {{total}} threads"
+    }
+  },
+  "deleteModal": {
+    "title": "Confirm deleting the thread",
+    "message": "Would you like to delete \"{{name}}\" ? Delete will be permanent."
+  },
+  "feedbacks": {
+    "deleteThreadError": {
+      "title": "Deletion Failed",
+      "description": "Fail to remove thread"
+    },
+    "loadingThreadError": {
+      "title": "Failed to load threads"
+    }
+  },
+  "data": {
+    "id": {
+      "label": "ID"
+    },
+    "name": {
+      "label": "Name",
+      "required": "Name is required",
+      "alreadyUsed": "Name already used"
+    },
+    "link": {
+      "label": "Link",
+      "required": "Link is required"
+    },
+    "description": {
+      "label": "Description"
+    }
+  },
+  "update": {
+    "action": {
+      "save": "Save"
+    },
+    "feedbacks": {
+      "updateError": {
+        "title": "Update failed"
+      },
+      "updateSuccess": {
+        "title": "Updated with success"
+      }
+    }
+  },
+  "create": {
+    "feedbacks": {
+      "updateError": {
+        "title": "Creation failed"
+      },
+      "updateSuccess": {
+        "title": "Thread created with success"
+      }
+    },
+    "action": {
+      "save": "Create"
+    },
+    "title": "New Thread"
+  }
+}

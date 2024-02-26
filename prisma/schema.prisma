@@ -18,23 +18,28 @@ enum AccountStatus {
   DISABLED
   // User did register, but has not verified their email yet.
   NOT_VERIFIED
+  // User is an anonymous user
+  ANONYMOUS
 }
 
 model User {
-  id             String        @id @default(cuid())
+  id             Int           @id @default(autoincrement())
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
   name           String?
-  email          String        @unique
+  email          String?        @unique
   accountStatus  AccountStatus @default(NOT_VERIFIED)
   image          String?
   authorizations String[]      @default(["APP"])
   language       String        @default("en")
   lastLoginAt    DateTime?
+
+  threads Thread[]
 }
 
+
 model VerificationToken {
-  userId        String
+  userId        Int
   code          String
   token         String   @unique
   expires       DateTime
@@ -45,11 +50,12 @@ model VerificationToken {
   email         String?
 }
 
-model Repository {
-  id          String   @id @default(cuid())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  name        String   @unique
-  link        String
-  description String?
+model Thread {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String   @unique
+  body      String
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
 }

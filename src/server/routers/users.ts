@@ -4,9 +4,46 @@ import { z } from 'zod';
 
 import { zUser } from '@/features/users/schemas';
 import { ExtendedTRPCError } from '@/server/config/errors';
-import { createTRPCRouter, protectedProcedure } from '@/server/config/trpc';
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from '@/server/config/trpc';
 
 export const usersRouter = createTRPCRouter({
+  get: publicProcedure()
+    .meta({
+      openapi: {
+        method: 'GET',
+        path: '/users/get',
+        protect: true,
+        tags: ['user'],
+      },
+    })
+    .output(zUser())
+    .query(async ({ ctx }) => {
+      ctx.logger.info('Getting user');
+
+      if (!ctx.user) {
+        ctx.logger.warn('Unable to find user with the provided input');
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+        });
+      }
+
+      const user = await ctx.db.user.findUnique({
+        where: { id: ctx.user.id },
+      });
+
+      if (!user) {
+        ctx.logger.warn('Unable to find user with the provided input');
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+        });
+      }
+
+      return user;
+    }),
   getById: protectedProcedure({ authorizations: ['ADMIN'] })
     .meta({
       openapi: {
@@ -50,7 +87,7 @@ export const usersRouter = createTRPCRouter({
     .input(
       z
         .object({
-          cursor: z.string().cuid().optional(),
+          cursor: z.number().optional(),
           limit: z.number().min(1).max(100).default(20),
           searchTerm: z.string().optional(),
         })
@@ -59,7 +96,7 @@ export const usersRouter = createTRPCRouter({
     .output(
       z.object({
         items: z.array(zUser()),
-        nextCursor: z.string().cuid().optional(),
+        nextCursor: z.number().optional(),
         total: z.number(),
       })
     )

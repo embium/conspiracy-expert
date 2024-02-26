@@ -2,7 +2,7 @@
   "layout": {
     "mainMenu": {
       "dashboard": "Dashboard",
-      "repositories": "Repositories",
+      "threads": "Threads",
       "management": "Management"
     },
     "accountMenu": {

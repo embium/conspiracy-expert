@@ -2,7 +2,7 @@
   "layout": {
     "mainMenu": {
       "home": "Home",
-      "repositories": "Repositories",
+      "threads": "Threads",
       "account": "Account"
     }
   }

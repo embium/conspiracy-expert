@@ -102,7 +102,7 @@ export const useOnVerificationCodeSuccess = ({
 export const useOnVerificationCodeError = ({ form }: { form: FormContext }) => {
   const { t } = useTranslation(['auth']);
   const [attempts, setAttemps] = useQueryState(
-    'attemps',
+    'attempts',
     parseAsInteger.withDefault(0)
   );
 

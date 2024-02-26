@@ -4,6 +4,7 @@ import {
   Avatar,
   Box,
   BoxProps,
+  Button,
   Container,
   Flex,
   HStack,
@@ -13,8 +14,10 @@ import { usePathname } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { LuFolderGit2, LuHome } from 'react-icons/lu';
 
+import { ActionsButton } from '@/components/ActionsButton';
 import { Icon } from '@/components/Icons';
 import { Logo } from '@/components/Logo';
+import { ResponsiveIconButton } from '@/components/ResponsiveIconButton';
 import { LinkApp } from '@/features/app/LinkApp';
 import { APP_PATH } from '@/features/app/constants';
 import { trpc } from '@/lib/trpc/client';
@@ -34,38 +37,40 @@ export const AppNavBarDesktop = (props: BoxProps) => {
             <Box as={LinkApp} href="/">
               <Logo />
             </Box>
-            <HStack flex={1} spacing={0}>
-              <AppNavBarDesktopMainMenuItem href="/" icon={LuHome}>
-                {t('app:layout.mainMenu.home')}
-              </AppNavBarDesktopMainMenuItem>
-              <AppNavBarDesktopMainMenuItem
-                href="/repositories"
-                icon={LuFolderGit2}
+            <HStack flex={1} spacing={0}></HStack>
+            {account.data ? (
+              <Avatar
+                as={LinkApp}
+                href="/account"
+                size="sm"
+                icon={<></>}
+                name={account.data?.email ?? ''}
+                {...(isAccountActive
+                  ? {
+                      ring: '2px',
+                      ringOffset: '3px',
+                      ringColor: 'gray.800',
+                      ringOffsetColor: 'white',
+                      _dark: {
+                        ringColor: 'gray.200',
+                        ringOffsetColor: 'black',
+                      },
+                    }
+                  : {})}
               >
-                {t('app:layout.mainMenu.repositories')}
-              </AppNavBarDesktopMainMenuItem>
-            </HStack>
-            <Avatar
-              as={LinkApp}
-              href="/account"
-              size="sm"
-              icon={<></>}
-              name={account.data?.email ?? ''}
-              {...(isAccountActive
-                ? {
-                    ring: '2px',
-                    ringOffset: '3px',
-                    ringColor: 'gray.800',
-                    ringOffsetColor: 'white',
-                    _dark: {
-                      ringColor: 'gray.200',
-                      ringOffsetColor: 'black',
-                    },
-                  }
-                : {})}
-            >
-              {account.isLoading && <Spinner size="xs" />}
-            </Avatar>
+                {account.isLoading && <Spinner size="xs" />}
+              </Avatar>
+            ) : (
+              <Button
+                as={LinkApp}
+                href="/login"
+                size="md"
+                variant="outline"
+                colorScheme="green"
+              >
+                Login
+              </Button>
+            )}
           </HStack>
         </Container>
       </Flex>
